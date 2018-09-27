@@ -1,0 +1,141 @@
+{
+  "name": "kangaroo",
+  "version": "1.0.0",
+  "description": "electron",
+  "author": {
+    "name": "kangaroo",
+    "email": "kangaroo@dtstack.com"
+  },
+  "homepage": "https://www.dtstack.com",
+  "main": "dist/main.prod.js",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "rimraf dist && npm run dev-main && node bin/start",
+    "dev-main": " webpack --progress  --config ./build/dev.main",
+    "electron": "electron ./dist/main.dev",
+    "build": "npm run build-render && npm run build-main",
+    "rebuild": "./node_modules/.bin/electron-rebuild",
+    "build-render": "rimraf dist && webpack --bail --progress --profile  --config ./build/prod.render",
+    "build-main": "rimraf release && webpack --bail --progress --profile  --config ./build/prod.main",
+    "package-win": "npm run build && build --win ",
+    "package-linux": "npm run build && build --linux",
+    "package-mac": "npm run build && build --mac",
+    "package-all": "npm run build && build -mwl"
+  },
+  "keywords": [
+    "react",
+    "webpack"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "bizcharts": "^3.2.2",
+    "lodash": "^4.17.10",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-router-dom": "^4.3.1",
+    "roo-bid": "^0.0.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/plugin-proposal-do-expressions": "^7.0.0",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+    "@babel/plugin-proposal-function-bind": "^7.0.0",
+    "@babel/plugin-proposal-function-sent": "^7.0.0",
+    "@babel/plugin-proposal-json-strings": "^7.0.0",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.0.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
+    "@babel/plugin-proposal-pipeline-operator": "^7.0.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/plugin-transform-classes": "^7.0.0",
+    "@babel/plugin-transform-react-constant-elements": "^7.0.0",
+    "@babel/plugin-transform-react-inline-elements": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-stage-0": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "babel-plugin-transform-react-pure-class-to-function": "^1.0.1",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.15",
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^1.0.0",
+    "electron": "^3.0.0",
+    "electron-builder": "^20.28.4",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-rebuild": "^1.8.2",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.2",
+    "node-sass": "^4.9.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.0",
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7"
+  },
+  "build": {
+    "appId": "kangaroo.dtstack.com",
+    "productName": "kangaroo",
+    "artifactName": "${name}_v${version}.${ext}",
+    "directories": {
+      "buildResources": "dist/icons",
+      "output": "release"
+    },
+    "files": [
+      "dist/",
+      "node_modules/",
+      "index.html",
+      "main.prod.js",
+      "package.json"
+    ],
+    "extends": null,
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "icon": "dist/icons/icon.ico",
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "icon": "dist/icons/icon.png",
+      "target": [
+        "zip",
+        "deb",
+        "AppImage"
+      ],
+      "category": "Development"
+    }
+  },
+  "contributors": [
+    {
+      "name": "kangaroo",
+      "email": "kangaroo@dtstack.com",
+      "url": "https://dtstack.com/"
+    }
+  ]
+}
