@@ -2,14 +2,12 @@ process.env.NODE_ENV = 'development';
 const path = require('path');
 const childProcess = require('child_process');
 const webpack = require('webpack');
-const server=require('../build/server');
+const server=require('../build/server.conf');
 const devRender = require('../build/dev.render');
 const WebpackDevServer = require('webpack-dev-server');
-
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 
 devRender.entry.index.unshift(`webpack-dev-server/client?http://${server.host}:${server.port}/`);
-
 const compiler = webpack(devRender);
 compiler.plugin('invalid', function() {
     console.log('Compiling...');

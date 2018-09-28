@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 const path = require('path');
-const server=require('../../build/server')
+const server=require('../../build/server.conf')
 let win = null;
 
 const installExtensions = async () => {

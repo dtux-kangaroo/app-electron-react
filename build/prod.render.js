@@ -5,6 +5,7 @@ const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
 module.exports = {
     mode: "production", 
     target: 'electron-renderer',//编译模式3
@@ -55,6 +56,9 @@ module.exports = {
             template:path.resolve(__dirname, '../src/render/index.html'),
             filename: "./index.html"
           }),
+        new ScriptExtHtmlPlugin({
+            defaultAttribute: 'defer'
+        }),
         new webpack.NamedModulesPlugin(),
         new CopyWebpackPlugin([
             {
