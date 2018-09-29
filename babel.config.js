@@ -10,6 +10,9 @@ module.exports = {
       ]
     ],
     plugins: [
+      ["import",
+       { "libraryName": "antd", "style": true }
+      ],
       // Stage 0
       '@babel/plugin-proposal-function-bind', 
       // Stage 1

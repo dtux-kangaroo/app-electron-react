@@ -9,36 +9,44 @@ module.exports = {
     devtool: 'cheap-module-eval-source-map',
     mode:'production',
     target: 'electron-renderer',
+    context:path.resolve(__dirname, '../src'),
     entry: {
-        index: [path.resolve(__dirname, '../src/render/index')]
+        index: ['./render/index']
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: "[name].js",
     },
     module: { //这些选项决定了如何处理项目中的不同类型的模块。
-        rules: [{
-                test: /\.jsx?$/,
-                exclude: /(node_modules)/, //处理该文件时，排除的目录，建议使用include
+        rules: [
+            {
+                test: /\.js|jsx$/,
+                exclude: /(node_modules)/,
                 use: {
-                    loader: 'babel-loader'
+                loader: 'babel-loader?cacheDirectory',
+                options: {}
                 }
             },
             {
-                test: /\.css$/,
+                test: /\.(less|css)$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    "css-loader"
+                  "style-loader",
+                  "css-loader",
+                  "less-loader"
                 ],
             },
             {
                 test: /\.(scss|sass)$/,
                 use: [
-                     MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader"
+                  "style-loader", //上面的简写方式
+                  "css-loader",
+                  "sass-loader"
                 ]
-            }
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?[tv]=[\d.]+)*$/,
+                use: ['file-loader?limit=8192&name=imgs/[hash:8].[name].[ext]']
+              }
         ]
     },
     plugins: [
@@ -48,20 +56,20 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             inject: true,
-            template: path.resolve(__dirname, '../src/render/index.html'),
+            template: './render/index.html',
             filename: 'index.html',
         }),
         new ScriptExtHtmlPlugin({
             defaultAttribute: 'defer'
         }),
         new CopyWebpackPlugin([
-            {
-              from: path.resolve(__dirname, '../src/public/icons'),
-              to: path.resolve(__dirname, '../dist/icons')
-            }
+            {from: './public',to:"./"},
+            {from: './render/assets/libs',to:"./libs"},
+            {from: './render/assets/imgs',to:"./imgs"}
         ]),
+        new webpack.DefinePlugin({ISPROD: JSON.stringify(false)}),
         new webpack.EnvironmentPlugin({
-            NODE_ENV: 'development'
+            NODE_ENV: 'development',
         })
     ],
     resolve: { //配置模块如何解析
@@ -69,8 +77,11 @@ module.exports = {
         alias: { 
             pages: path.resolve(__dirname, '../src/render/pages/'),
             assets: path.resolve(__dirname, '../src/render/assets/'),
-            component: path.resolve(__dirname, '../src/render/components/'),
-            tpls: path.resolve(__dirname, '../src/render/tpls/')
+            components: path.resolve(__dirname, '../src/render/components/'),
+            tpls: path.resolve(__dirname, '../src/render/tpls/'),
+            utils: path.resolve(__dirname, '../src/render/utils/'),
+            constants: path.resolve(__dirname, '../src/render/constants/'),
+            layout: path.resolve(__dirname, '../src/render/layout/')
         },
         modules: [
             path.resolve(__dirname, "../src"), //告诉 webpack 解析模块时应该搜索的目录。

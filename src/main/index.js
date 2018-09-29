@@ -6,12 +6,10 @@ let win = null;
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
-  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS']; //REDUX_DEVTOOLS
-
+  const extensions = ['REACT_DEVELOPER_TOOLS','REDUX_DEVTOOLS']; //
   return Promise.all(
     extensions.map(name => installer.default(installer[name]))
-  ).catch(console.log);
+  ).catch('start...error');
 };
 
 app.on('window-all-closed', () => {
@@ -28,7 +26,7 @@ app.on('ready', async () => {
   });
   if (process.env.NODE_ENV === 'development') {
     win.loadURL(`http://${server.host}:${server.port}/index.html`);
-    await installExtensions();
+    await installExtensions(); //用于调试代码
     win.webContents.openDevTools(); 
   }else{
     win.loadURL(`file://${path.resolve(__dirname, './index.html')}`);
