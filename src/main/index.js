@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow , ipcMain} from 'electron';
 import MenuBuilder from './menu';
 const path = require('path');
 const server=require('../../build/server.conf')
@@ -20,9 +20,10 @@ app.on('window-all-closed', () => {
 
 app.on('ready', async () => {
   win = new BrowserWindow({
-    show: false,
+    show:false,
     width: 1024,
-    height: 728
+    height: 728,
+    frame: false,
   });
   if (process.env.NODE_ENV === 'development') {
     win.loadURL(`http://${server.host}:${server.port}/index.html`);
@@ -42,9 +43,43 @@ app.on('ready', async () => {
       win.focus();
     }
   });
-
+ 
   win.on('closed', () => {
     win = null;
+  });
+  ipcMain.on("loadingSuccess", (event) => {
+    win.setResizable(true);
+    event.returnValue = 'setSuccess'
+  });
+  ipcMain.on("headerType", (event, args) => {
+    switch (args) {
+      case 'minimize':
+      if (process.platform === 'darwin') {
+        if (win.isFullScreen()) {
+          win.setFullScreen(false);
+        }
+      }
+      //win.unmaximize(); 
+      win.minimize();break;
+      case 'restore':
+        if (process.platform === 'darwin') {
+          if (win.isFullScreen()) {
+            win.setFullScreen(false);
+          }
+        }
+          win.unmaximize();
+        break;
+      case 'maximize':
+        if (process.platform === 'darwin') {
+          win.setFullScreen(true);
+        } else {
+          win.maximize();
+        }
+        break;
+      case 'close': win && win.close();break;
+      default: break;
+    }
+    event.returnValue = 'setSuccess'
   });
 
   const menuBuilder = new MenuBuilder(win);

@@ -1,41 +1,66 @@
 import React, { Component } from 'react';
-import { Layout, Icon } from "antd";
+import { Layout, Tabs,Icon } from "antd";
 import { connect } from "react-redux";
-import SideBar from "./sideBar";
-import TopBar from "./topBar";
-import Foot from 'components/footer'
 import * as global from "pages/global/action";
-import { bindActionCreators } from "redux";
 import './style.scss';
-let { Header, Footer, Sider, Content } = Layout;
-@connect(
-  state => ({ ...state.global }),
-  dispatch => bindActionCreators({ ...global }, dispatch)
-)
+import { NavLink} from "react-router-dom";
+import logo from 'public/icons/logo_64.png'
+import electron from 'electron';
+const { ipcRenderer } = electron;
+import { createHashHistory } from 'history';
+const history = createHashHistory();
+const TabPane = Tabs.TabPane;
+
 export default class MainLayout extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      curTab:1
+    };
   }
 
   componentDidMount() {
-    this.props.getNavData({});
   }
   componentWillReceiveProps(nextProps) {}
 
-
+  _iconClick = (type) => {
+    console.log(type,'type');
+    switch (type) {
+      case 'minimize': ipcRenderer.sendSync('headerType', 'minimize');break;
+      case 'restore':
+        ipcRenderer.sendSync('headerType', 'restore');break;
+      case 'maximize':
+        ipcRenderer.sendSync('headerType', 'maximize');break;
+      case 'close': ipcRenderer.sendSync('headerType', 'close');break;
+      default: break;
+    }
+  };
   render() {
-    const {  navData,match, location } = this.props;
+    const {curTab}=this.state;
+    console.log(this.props,'props');
+    const{pathname}=this.props.location;
+    
     return (
-       <Layout className="main-layout">
-        <Header><TopBar location={location}  navData={navData.topNav} /></Header>
-        <Layout className="top-layout">
-          <SideBar location={location}  navData={navData.sideNav}/>
-          <Layout>
-            <div className="content">{this.props.children}</div>
-            {/* <Foot/> */}
-          </Layout>
-        </Layout>
+     <Layout className="main-layout">
+       <div className="main-head">
+          <div className="head-logo">
+           <img src={logo}/>
+          </div>
+          <div className="head-content">
+           <NavLink to='/project' className={pathname.indexOf('project')>-1?"actived":""}>项目</NavLink>
+           <NavLink to='/box' className={pathname=='/box'?"actived":""}>Box</NavLink>
+           <NavLink to='/scaffold' className={pathname=='/scaffold'?"actived":""}>脚手架</NavLink>
+           <NavLink to='/conf' className={pathname=='/conf'?"actived":""}>配置</NavLink>
+          </div>
+          <div className="head-bar">
+            <Icon type="fullscreen" theme="outlined"  onClick={this._iconClick.bind(this,'maximize')}/>
+            <Icon type="minus" theme="outlined" onClick={this._iconClick.bind(this,'minimize')}/>
+            <Icon type="close" theme="outlined" onClick={this._iconClick.bind(this,'close')}/>
+          </div>
+      </div>
+      <div className="main-content">
+       {this.props.children||'加载....'}
+      </div>
       </Layout>
     );
   }

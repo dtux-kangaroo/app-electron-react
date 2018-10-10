@@ -17,14 +17,13 @@ module.exports = {
         path: path.resolve(__dirname, '../dist'),
         filename: "[name].js",
     },
-    module: { //这些选项决定了如何处理项目中的不同类型的模块。
+    module: {
         rules: [
             {
                 test: /\.js|jsx$/,
                 exclude: /(node_modules)/,
                 use: {
-                loader: 'babel-loader?cacheDirectory',
-                options: {}
+                loader: 'babel-loader'
                 }
             },
             {
@@ -78,7 +77,7 @@ module.exports = {
             pages: path.resolve(__dirname, '../src/render/pages/'),
             assets: path.resolve(__dirname, '../src/render/assets/'),
             components: path.resolve(__dirname, '../src/render/components/'),
-            tpls: path.resolve(__dirname, '../src/render/tpls/'),
+            public: path.resolve(__dirname, '../src/public/'),
             utils: path.resolve(__dirname, '../src/render/utils/'),
             constants: path.resolve(__dirname, '../src/render/constants/'),
             layout: path.resolve(__dirname, '../src/render/layout/')

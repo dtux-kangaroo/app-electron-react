@@ -8,27 +8,48 @@ import MainLayout  from 'layout/mainLayout';
 // const Page404 = Loadable({loader: () => import('../pages/error/404'),loading: Loading});
 // const Login=Loadable({loader:() => import('../pages/auth/login'),loading: Loading});
 // const Register=Loadable({loader:() => import('../pages/auth/register'),loading: Loading});
-import UserList from 'pages/user/list';
+import Project from 'pages/project';
+import ProjectDetail from 'pages/project/Detail'
+import Conf from 'pages/conf';
+import Box from 'pages/box';
+import Scaffold from 'pages/scaffold';
 import Page404 from 'pages/error/404';
-import Login from 'pages/auth/login';
-import Register from 'pages/auth/register';
 const routerConf = [
-  {
-    path: '/',
-    layout: MainLayout,
-    component: UserList
-  },
-  {
-   path:'/login',
-   layout: null,
-   component: Login,
-  },
-  {
-    path:'/register',
-    layout: null,
-    component: Register,
-   },
-  {
+    {
+      path:'/project',
+      layout: MainLayout,
+      component: Project,
+      children:[
+        {
+          path:'/detail',
+          layout: MainLayout,
+          component: ProjectDetail,
+        }
+      ]
+    },
+    {
+      path:'/box',
+      layout: MainLayout,
+      component: Box,
+      children:[]
+     },
+    {
+      path:'/scaffold',
+      layout: MainLayout,
+      component: Scaffold,
+      children:[]
+     },
+     {
+      path:'/conf',
+      layout: MainLayout,
+      component: Conf,
+      children:[]
+     },
+    {
+      path:'/',
+      redirect:'/project'
+    },
+   {
     path: '*',
     layout: MainLayout,
     component: Page404,
