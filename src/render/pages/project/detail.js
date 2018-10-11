@@ -29,7 +29,7 @@ export default class Detail extends Component {
       const{isShow,pageData}=this.state;
     return  <div className="project-detail">
         <div className="detail-head">
-          <div className="head-left fl" onClick={this.setPage}>
+          <div className="head-left fl" onClick={this.setPage.bind(this)}>
              中金项目(home页面)
            <Icon type="caret-down" theme="outlined" />
           </div>

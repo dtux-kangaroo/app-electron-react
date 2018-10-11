@@ -1,13 +1,6 @@
 
 import Loading from 'components/loading';
 import MainLayout  from 'layout/mainLayout';
-// import SideLayout  from 'layout/SideLayout';
-// import TopLayout  from 'layout/topLayout';
-// const Home = Loadable({loader: () => import('../pages/home'),loading: Loading});
-// const UserList = Loadable({loader: () => import('../pages/user/list'),loading: Loading});
-// const Page404 = Loadable({loader: () => import('../pages/error/404'),loading: Loading});
-// const Login=Loadable({loader:() => import('../pages/auth/login'),loading: Loading});
-// const Register=Loadable({loader:() => import('../pages/auth/register'),loading: Loading});
 import Project from 'pages/project';
 import ProjectDetail from 'pages/project/Detail'
 import Conf from 'pages/conf';
@@ -15,6 +8,10 @@ import Box from 'pages/box';
 import Scaffold from 'pages/scaffold';
 import Page404 from 'pages/error/404';
 const routerConf = [
+    {
+      path:"/",
+      redirect:'/project'
+    },
     {
       path:'/project',
       layout: MainLayout,
@@ -45,10 +42,6 @@ const routerConf = [
       component: Conf,
       children:[]
      },
-    {
-      path:'/',
-      redirect:'/project'
-    },
    {
     path: '*',
     layout: MainLayout,

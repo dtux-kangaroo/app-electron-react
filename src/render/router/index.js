@@ -1,8 +1,6 @@
 import React from 'react';
 import routerConf from './routerConf';
 import {  Router, Switch, Route,Redirect } from 'react-router-dom';
-//  import createHistory from "history/createBrowserHistory";
-// const history = createHistory();
 import { createHashHistory } from 'history';
 const history = createHashHistory();
 
@@ -32,7 +30,7 @@ function renderRouteConf(container, router, contextPath) {
         />
       );
     }else if(routeItem.redirect){
-      routeChildren.push(<Redirect key={routeItem.path}  exact from={routeItem.path} to={routeItem.redirect}/>);
+      routeChildren.push(<Redirect key={routeItem.path} exact  from={routePath} to={routeItem.redirect}/>);
     }else if (routeContainer && routeItem.component) {
       routeChildren.push(
         <Route
