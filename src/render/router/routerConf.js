@@ -16,7 +16,7 @@ import Scaffold from 'pages/scaffold';
 import Page404 from 'pages/error/404';
 const routerConf = [
     {
-      path:'/project',
+      path:'/',
       layout: MainLayout,
       component: Project,
       children:[
@@ -45,10 +45,10 @@ const routerConf = [
       component: Conf,
       children:[]
      },
-    {
-      path:'/',
-      redirect:'/project'
-    },
+    // {
+    //   path:'/',
+    //   redirect:'/project'
+    // },
    {
     path: '*',
     layout: MainLayout,

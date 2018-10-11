@@ -49,10 +49,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: "css/[name].[hash].css",
-            chunkFilename: "css/[id].[hash].css"
-        }),
+        // new MiniCssExtractPlugin({
+        //     filename: "css/[name].[hash].css",
+        //     chunkFilename: "css/[id].[hash].css"
+        // }),
         new HtmlWebpackPlugin({
             inject: true,
             template: './render/index.html',

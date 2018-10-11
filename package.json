@@ -79,7 +79,7 @@
     "less": "^2.7.3",
     "less-loader": "^4.1.0",
     "localforage": "^1.7.2",
-    "mini-css-extract-plugin": "^0.4.2",
+    "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.9.3",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "react-dev-utils": "^5.0.2",
