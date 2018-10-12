@@ -45,10 +45,6 @@ const routerConf = [
       component: Conf,
       children:[]
      },
-    // {
-    //   path:'/',
-    //   redirect:'/project'
-    // },
    {
     path: '*',
     layout: MainLayout,
