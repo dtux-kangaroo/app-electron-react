@@ -47,10 +47,10 @@ export default class MainLayout extends Component {
            <img src={logo}/>
           </div>
           <div className="head-content">
-           <NavLink to='/project' className={pathname.indexOf('project')>-1?"actived":""}>项目</NavLink>
-           <NavLink to='/box' className={pathname=='/box'?"actived":""}>Box</NavLink>
-           <NavLink to='/scaffold' className={pathname=='/scaffold'?"actived":""}>脚手架</NavLink>
-           <NavLink to='/conf' className={pathname=='/conf'?"actived":""}>配置</NavLink>
+           <NavLink to='/project' className={(pathname.indexOf('project')>-1||pathname=='/')?"actived":""}>项目</NavLink>
+           <NavLink to='/block' className={pathname.indexOf('block')>-1?"actived":""}>block</NavLink>
+           <NavLink to='/scaffold' className={pathname.indexOf('scaffold')>-1?"actived":""}>脚手架</NavLink>
+           <NavLink to='/conf' className={pathname.indexOf('conf')>-1?"actived":""}>配置</NavLink>
           </div>
           <div className="head-bar">
             <Icon type="fullscreen" theme="outlined"  onClick={this._iconClick.bind(this,'maximize')}/>

@@ -70,14 +70,9 @@ export default class Head extends React.Component {
         </div>
         <div className="head-content"  onClick={this.selectTab.bind(this)}>
           <span className={curTab==1?'active':""} >项目</span>
-          <span  className={curTab==2?'active':""} >Box</span>
+          <span  className={curTab==2?'active':""} >Block</span>
           <span  className={curTab==3?'active':""} >脚手架</span>
           <span  className={curTab==4?'active':""} >配置</span>
-        {/* <Tabs defaultActiveKey="1">
-          <TabPane tab="Tab 1" key="1"></TabPane>
-          <TabPane tab="Tab 2" key="2"></TabPane>
-          <TabPane tab="Tab 3" key="3"></TabPane>
-        </Tabs> */}
         </div>
         <div className="head-bar">
           <Icon type="fullscreen" theme="outlined"  onClick={this._iconClick.bind(this,'maximize')}/>

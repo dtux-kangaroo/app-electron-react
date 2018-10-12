@@ -11,7 +11,7 @@ import MainLayout  from 'layout/mainLayout';
 import Project from 'pages/project';
 import ProjectDetail from 'pages/project/Detail'
 import Conf from 'pages/conf';
-import Box from 'pages/box';
+import Block from 'pages/block';
 import Scaffold from 'pages/scaffold';
 import Page404 from 'pages/error/404';
 const routerConf = [
@@ -28,9 +28,9 @@ const routerConf = [
       ]
     },
     {
-      path:'/box',
+      path:'/Block',
       layout: MainLayout,
-      component: Box,
+      component: Block,
       children:[]
      },
     {
