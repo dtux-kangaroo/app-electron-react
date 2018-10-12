@@ -19,6 +19,11 @@ const routerConf = [
       path:'/',
       layout: MainLayout,
       component: Project,
+    },
+    {
+      path:'/project',
+      layout: MainLayout,
+      component: Project,
       children:[
         {
           path:'/detail',
